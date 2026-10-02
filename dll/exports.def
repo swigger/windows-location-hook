@@ -1,0 +1,6 @@
+LIBRARY LocationServiceHook
+EXPORTS
+    ServiceMain
+    SvchostPushServiceGlobals
+    DllCanUnloadNow=ProxyDllCanUnloadNow PRIVATE
+    DllGetClassObject=ProxyDllGetClassObject PRIVATE

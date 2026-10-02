@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="dll">
+      <UniqueIdentifier>{5351C761-9C4D-47A9-B92C-0AF70111C6A2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dll\location_hook.cpp">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="dll\buffer.c">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="dll\hook.c">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="dll\trampoline.c">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="dll\hde\hde64.c">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="dll\find_vtbl.cpp">
+      <Filter>dll</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dll\MinHook.h">
+      <Filter>dll</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

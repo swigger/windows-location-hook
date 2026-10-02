@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11723.231
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lfhookcfg", "lfhookcfg.vcxproj", "{A5AE45B5-5A5D-4DBC-9805-D68D60411413}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LocationServiceHook", "LocationServiceHook.vcxproj", "{F1D57D32-3F6E-4C63-98F6-42028172DD6E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LocationDemo", "LocationDemo.vcxproj", "{833842C5-74A3-43B1-97B9-72B7C88EECCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5AE45B5-5A5D-4DBC-9805-D68D60411413}.Debug|x64.ActiveCfg = Debug|x64
+		{A5AE45B5-5A5D-4DBC-9805-D68D60411413}.Debug|x64.Build.0 = Debug|x64
+		{A5AE45B5-5A5D-4DBC-9805-D68D60411413}.Release|x64.ActiveCfg = Release|x64
+		{A5AE45B5-5A5D-4DBC-9805-D68D60411413}.Release|x64.Build.0 = Release|x64
+		{F1D57D32-3F6E-4C63-98F6-42028172DD6E}.Debug|x64.ActiveCfg = Debug|x64
+		{F1D57D32-3F6E-4C63-98F6-42028172DD6E}.Debug|x64.Build.0 = Debug|x64
+		{F1D57D32-3F6E-4C63-98F6-42028172DD6E}.Release|x64.ActiveCfg = Release|x64
+		{F1D57D32-3F6E-4C63-98F6-42028172DD6E}.Release|x64.Build.0 = Release|x64
+		{833842C5-74A3-43B1-97B9-72B7C88EECCA}.Debug|x64.ActiveCfg = Debug|x64
+		{833842C5-74A3-43B1-97B9-72B7C88EECCA}.Debug|x64.Build.0 = Debug|x64
+		{833842C5-74A3-43B1-97B9-72B7C88EECCA}.Release|x64.ActiveCfg = Release|x64
+		{833842C5-74A3-43B1-97B9-72B7C88EECCA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1DA23CCC-0A1F-44C4-BF27-25E7558B7776}
+	EndGlobalSection
+EndGlobal
