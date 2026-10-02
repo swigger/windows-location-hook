@@ -10,4 +10,9 @@
       <Filter>demo</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resources\locationdemo.rc" />
+    <Image Include="resources\locationdemo.ico" />
+    <ClInclude Include="resources\resource.h" />
+  </ItemGroup>
 </Project>

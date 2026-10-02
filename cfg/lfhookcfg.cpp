@@ -1,5 +1,6 @@
 #include "deployment.hpp"
 #include "map_control.hpp"
+#include "../resources/resource.h"
 #include <commctrl.h>
 #include <shellapi.h>
 #include <windowsx.h>
@@ -270,8 +271,10 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,PWSTR,int show) {
         } else {
             INITCOMMONCONTROLSEX common{sizeof(common),ICC_STANDARD_CLASSES}; InitCommonControlsEx(&common);
             App app; app.instance=instance; app.config=config; app.options=options;
-            WNDCLASSW wc{}; wc.lpfnWndProc=App::Proc; wc.hInstance=instance; wc.lpszClassName=L"LFHookConfiguration"; wc.hCursor=LoadCursorW(nullptr,IDC_ARROW); wc.hIcon=LoadIconW(nullptr,IDI_APPLICATION);
-            RegisterClassW(&wc);
+            WNDCLASSEXW wc{sizeof(wc)}; wc.lpfnWndProc=App::Proc; wc.hInstance=instance; wc.lpszClassName=L"LFHookConfiguration"; wc.hCursor=LoadCursorW(nullptr,IDC_ARROW);
+            wc.hIcon=static_cast<HICON>(LoadImageW(instance,MAKEINTRESOURCEW(IDI_APP),IMAGE_ICON,GetSystemMetrics(SM_CXICON),GetSystemMetrics(SM_CYICON),LR_SHARED));
+            wc.hIconSm=static_cast<HICON>(LoadImageW(instance,MAKEINTRESOURCEW(IDI_APP),IMAGE_ICON,GetSystemMetrics(SM_CXSMICON),GetSystemMetrics(SM_CYSMICON),LR_SHARED));
+            if(!wc.hIcon || !wc.hIconSm || !RegisterClassExW(&wc)) throw std::runtime_error("Register window class or load icons failed");
             UINT dpi=GetDpiForSystem(); int width=MulDiv(1180,dpi,96),height=MulDiv(820,dpi,96);
             auto window=CreateWindowExW(WS_EX_CONTROLPARENT,wc.lpszClassName,L"LFHook · 隐私位置配置",WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN,CW_USEDEFAULT,CW_USEDEFAULT,width,height,nullptr,nullptr,instance,&app);
             if(!window) throw std::runtime_error("Create window failed");

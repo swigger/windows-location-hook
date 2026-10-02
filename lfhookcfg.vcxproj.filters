@@ -27,4 +27,9 @@
       <Filter>cfg</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resources\lfhookcfg.rc" />
+    <Image Include="resources\lfhookcfg.ico" />
+    <ClInclude Include="resources\resource.h" />
+  </ItemGroup>
 </Project>

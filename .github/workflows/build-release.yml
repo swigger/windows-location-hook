@@ -35,6 +35,18 @@ jobs:
           /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v145
           /p:PreferredToolArchitecture=x64
 
+      - name: Check Chinese UI text and application icons
+        run: ./scripts/test-windows-ui.ps1
+
+      - name: Upload UI verification screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64-ui-check
+          path: artifacts/ui-check/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Verify x64 binaries and package
         run: |
           $ErrorActionPreference = 'Stop'

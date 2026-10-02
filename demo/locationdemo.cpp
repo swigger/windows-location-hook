@@ -1,5 +1,6 @@
 // 原生 Win32 窗口 + C++/WinRT。不需要 .NET、WinUI 或第三方依赖。
 #include <windows.h>
+#include "../resources/resource.h"
 #include <shellapi.h>
 #include <CommCtrl.h>
 #include <winrt/Windows.Foundation.h>
@@ -350,13 +351,17 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int showCommand)
         // App 及其 WinRT 对象在 apartment 退出前释放。
         {
             App app;
-            WNDCLASSW wc{};
+            WNDCLASSEXW wc{sizeof(wc)};
             wc.lpfnWndProc = WindowProc;
             wc.hInstance = instance;
             wc.lpszClassName = L"WindowsLocationCppDemo";
             wc.hCursor = LoadCursorW(nullptr, IDC_ARROW);
             wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
-            if (!RegisterClassW(&wc)) throw_last_error();
+            wc.hIcon = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(IDI_APP), IMAGE_ICON,
+                GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), LR_SHARED));
+            wc.hIconSm = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(IDI_APP), IMAGE_ICON,
+                GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_SHARED));
+            if (!wc.hIcon || !wc.hIconSm || !RegisterClassExW(&wc)) throw_last_error();
             // 固定大小，便于保持 demo 的 Win32 布局代码简单。
             constexpr DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
             RECT rect{0, 0, 780, 700};
