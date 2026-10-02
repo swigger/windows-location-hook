@@ -15,14 +15,14 @@ public static class UiCheck {
     public delegate bool EnumProc(IntPtr window, IntPtr data);
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect { public int Left, Top, Right, Bottom; }
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    public static extern int GetWindowTextW(IntPtr window, StringBuilder text, int count);
+    [DllImport("user32.dll", EntryPoint = "SendMessageW", CharSet = CharSet.Unicode)]
+    public static extern IntPtr GetText(IntPtr window, uint message, IntPtr count, StringBuilder text);
     [DllImport("user32.dll")]
     public static extern bool EnumChildWindows(IntPtr parent, EnumProc callback, IntPtr data);
     [DllImport("user32.dll")]
     public static extern IntPtr GetDlgItem(IntPtr parent, int id);
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    public static extern bool SetWindowTextW(IntPtr window, string text);
+    [DllImport("user32.dll", EntryPoint = "SendMessageW", CharSet = CharSet.Unicode)]
+    public static extern IntPtr SetText(IntPtr window, uint message, IntPtr unused, string text);
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     public static extern IntPtr SendMessageW(IntPtr window, uint message, IntPtr w, IntPtr l);
     [DllImport("user32.dll")]
@@ -35,7 +35,8 @@ public static class UiCheck {
     public static extern uint ExtractIconExW(string path, int index, IntPtr[] large, IntPtr[] small, uint count);
     public static string Text(IntPtr window) {
         var text = new StringBuilder(8192);
-        GetWindowTextW(window, text, text.Capacity);
+        // WM_GETTEXT also retrieves edit/static control text across processes.
+        GetText(window, 0x000D, (IntPtr)text.Capacity, text);
         return text.ToString();
     }
     public static string[] AllText(IntPtr window) {
@@ -109,7 +110,7 @@ foreach ($name in @('lfhookcfg', 'LocationDemo')) {
             Assert-Text $window '选择应用将收到的位置与来源'
             Assert-Text $window '保存并应用'
             # Exercise the narrow UTF-8 exception -> UTF-16 status text path as well.
-            if (-not [UiCheck]::SetWindowTextW([UiCheck]::GetDlgItem($window, 101), 'invalid')) {
+            if ([UiCheck]::SetText([UiCheck]::GetDlgItem($window, 101), 0x000C, [IntPtr]::Zero, 'invalid') -eq [IntPtr]::Zero) {
                 throw 'Could not edit latitude'
             }
             [void][UiCheck]::SendMessageW($window, 0x0111, [IntPtr]107, [IntPtr]::Zero)
