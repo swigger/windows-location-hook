@@ -48,6 +48,7 @@ public static class UiCheck {
 
 function Assert-Text($window, [string]$expected) {
     if ($expected -notin [UiCheck]::AllText($window)) {
+        [UiCheck]::AllText($window) | Write-Output
         throw "Missing or incorrectly encoded UI text: $expected"
     }
     Write-Output "PASS UI text: $expected"
@@ -112,8 +113,8 @@ foreach ($name in @('lfhookcfg', 'LocationDemo')) {
                 throw 'Could not edit latitude'
             }
             [void][UiCheck]::SendMessageW($window, 0x0111, [IntPtr]107, [IntPtr]::Zero)
-            Assert-Text $window '操作失败：请输入有效数字；经纬度使用小数点。'
             Save-Window $window "$name-validation"
+            Assert-Text $window '操作失败：请输入有效数字；经纬度使用小数点。'
         } else {
             Assert-Text $window 'Windows 定位服务 Demo — C++'
             Assert-Text $window '获取当前位置'
